@@ -5,8 +5,8 @@ type Data = {
 }
 export default function Toast({msg,ok}:Data){
     return (
-        <div>
-            
+        <div className={`absolute right-5 bottom-5 font-mono ${ok === true ? 'bg-green-500' : 'bg-red-500'}`}>
+            <p>{msg}</p>
         </div>
     )
 }

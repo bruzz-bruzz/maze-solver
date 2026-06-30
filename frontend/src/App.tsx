@@ -8,6 +8,12 @@ export default function App() {
   const [maze,setMaze] = useState<number[][]>([[0]])
   const [path,setPath] = useState<number[][]>([])
   const [generated,setGenerated] = useState<boolean>(false)
+  const [toast,setToast] = useState<{msg:string,ok:boolean}>({msg:"",ok:false})
+  function clearToast(){
+    setTimeout(()=>{
+      setToast({msg:'',ok:false})
+    },3000)
+  }
   function generateMaze(width:number,height:number,start:number[]){
     const grid_w = width * 2 + 1
     const grid_h = height * 2 + 1
@@ -144,8 +150,6 @@ export default function App() {
         str.push('🟫')
       } else if (num[i] === 0){
         str.push('⬜')
-      } else {
-        str.push("PLACEHOLDER")
       }
     }
     return str.join('')
@@ -177,9 +181,11 @@ export default function App() {
           setMaze(m)
           setPath([])
           setGenerated(true)
+          setToast({msg:"Generated maze!",ok:true})
           } else {
-
+            setToast({msg:"Row and column values must be greater than 0!",ok:false})
           }
+          clearToast()
         }}>Generate maze</button>
         <button className='border border-black rounded-lg p-2 m-4' onClick={()=>{
                 const solvedPath = solveMaze(maze,[1,0])
@@ -189,6 +195,8 @@ export default function App() {
                     temp[p[0]][p[1]] = 2
                   }
                   setMaze(temp)
+                  setToast({msg:"Solved maze!",ok:true})
+                  clearToast()
                 }
         }}>Solve</button>
       </div>  
@@ -203,7 +211,8 @@ export default function App() {
             </div>
           )}
       </div>
-      <Github url={} />
+      <Github url={'https://github.com/bruzz-bruzz/maze-solver'} />
+
     </div>
   )
 }
