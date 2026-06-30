@@ -137,7 +137,7 @@ export default function App() {
       }
     }
     setPath(path)
-    setPath(solutions[0])
+    setPath(uniquePath)
     return uniquePath
   }
   function returnSymbol(num:number[]){
@@ -211,8 +211,10 @@ export default function App() {
             </div>
           )}
       </div>
+      {toast.msg.length > 0 && (
+        <Toast msg={toast.msg} ok={toast.ok} />
+      )}
       <Github url={'https://github.com/bruzz-bruzz/maze-solver'} />
-
     </div>
   )
 }
